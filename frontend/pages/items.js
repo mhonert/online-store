@@ -1,8 +1,9 @@
 import React from "react"
+import Items from "../components/Items";
 
 const Home = () => (
     <div>
-        <p>Hey!</p>
+        <Items />
     </div>
 )
 
