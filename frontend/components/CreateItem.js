@@ -5,6 +5,10 @@ import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 import Router from 'next/router';
+import getConfig from 'next/config';
+
+const {publicRuntimeConfig} = getConfig();
+const {cloudinaryCloudName} = publicRuntimeConfig;
 
 export const CREATE_ITEM_MUTATION = gql`
     mutation CREATE_ITEM_MUTATION(
@@ -47,12 +51,36 @@ const CreateItem = () => {
     });
   }
 
+  const uploadFile = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'course-store');
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryCloudName}/image/upload`,
+      {
+        method: 'POST',
+        body: data
+      });
+
+    const file = await res.json();
+
+    setImage(file.secure_url);
+    setLargeImage(file.eager[0].secure_url);
+  }
+
   return (
     <Mutation mutation={CREATE_ITEM_MUTATION} variables={{title, description, image, largeImage, price}}>
       {(createItem, { loading, error }) => (
         <Form onSubmit={e => handleSubmit(e, createItem)}>
           <Error error={error} />
           <fieldset disabled={loading} aria-busy={loading}>
+            <label>Image
+              <input type="file" name="file"
+                     placeholder="Upload an image" required
+                     onChange={e => uploadFile(e)} />
+              {image && <img src={image} alt="Uploaded Preview" />}
+            </label>
             <label>Title
               <input type="text" name="title"
                      placeholder="Title" required

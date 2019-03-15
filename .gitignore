@@ -8,3 +8,4 @@ layout.md
 variables.env
 .idea
 generated/
+next.config.js
