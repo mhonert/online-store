@@ -4,7 +4,7 @@ import Meta from "./Meta";
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 
 const theme = {
-  red: '#FF0000',
+  primary: '#0b7f28',
   black: '#393939',
   grey: '#3A3A3A',
   lightgrey: '#E1E1E1',
