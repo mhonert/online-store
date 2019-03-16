@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 import Router from 'next/router';
 import getConfig from 'next/config';
@@ -38,7 +37,7 @@ const CreateItem = () => {
   const [price, setPrice] = useState(0);
 
   const handleSubmit = async (e, createItem) => {
-    // Stop the for from submitting
+    // Stop the form from submitting
     e.preventDefault();
 
     // call the mutation

@@ -5,8 +5,9 @@ import Title from "./styles/Title";
 import Link from 'next/link';
 import PriceTag from "./styles/PriceTag";
 import formatMoney from "../lib/formatMoney";
+import DeleteItem from "./DeleteItem";
 
-const Item = ({item}) => {
+const Item = ({item, onDelete}) => {
   return (
     <ItemStyles>
       {item.image && <img src={item.image} alt={item.title} />}
@@ -30,10 +31,7 @@ const Item = ({item}) => {
           pathname: "add",
           query: { id: item.id }
         }}><a>Add to Cart</a></Link>
-        <Link href={{
-          pathname: "delete",
-          query: { id: item.id }
-        }}><a>Delete</a></Link>
+        <DeleteItem id={item.id} onDelete={onDelete}>Delete</DeleteItem>
       </div>
     </ItemStyles>
   );
