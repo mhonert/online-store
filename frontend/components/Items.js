@@ -3,10 +3,12 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Item from './Item';
+import Pagination from './Pagination';
+import { perPage } from '../config';
 
 const ALL_ITEMS_QUERY = gql`
-    query ALL_ITEMS_QUERY {
-        items {
+    query ALL_ITEMS_QUERY($skip: Int, $first: Int) {
+        items(skip: $skip, first: $first, orderBy: createdAt_DESC) {
             id
             title
             price
@@ -29,7 +31,7 @@ const ItemsList = styled.div`
   margin: 0 auto;
 `
 
-const Items = () => {
+const Items = ({page}) => {
   const removeItemFromCache = (cache, payload) => {
     // Manually update the cache on the client
     const data = cache.readQuery({query: ALL_ITEMS_QUERY});
@@ -37,10 +39,12 @@ const Items = () => {
     cache.writeQuery({query: ALL_ITEMS_QUERY, data});
   }
 
+  const itemStart = (page - 1) * perPage;
+
   return (
     <Center>
-      <p>Items!</p>
-      <Query query={ALL_ITEMS_QUERY}>
+      <Pagination page={page}/>
+      <Query query={ALL_ITEMS_QUERY} variables={{skip: itemStart, first: perPage}}>
         {({data, error, loading}) => {
           if (loading) {
             return <p>Loading ....</p>
@@ -53,6 +57,7 @@ const Items = () => {
           </ItemsList>
         }}
       </Query>
+      <Pagination page={page}/>
     </Center>
   );
 };
