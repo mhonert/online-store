@@ -8,7 +8,6 @@ const SigninRequired = ({ children }) => {
     <Query query={CURRENT_USER_QUERY}>
       {({data, loading}) => {
         if (loading) return <p>Loading ...</p>;
-        console.log(data);
         if (!data.me) {
           return (
             <>

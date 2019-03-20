@@ -16,9 +16,7 @@ const DeleteItem = ({id, onDelete, children}) => {
       return;
     }
 
-    console.log("Deleting item ...");
-
-    const result = await deleteItemMutation();
+    const result = await deleteItemMutation().catch(e => alert(e));
   }
 
   return (

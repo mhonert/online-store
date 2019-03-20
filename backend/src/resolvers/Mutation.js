@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, createEmail } = require("../mail");
+const { checkPermissions } = require("../utils");
 
 const setJwtCookie = (response, userId) => {
   // create JWT for the user
@@ -39,7 +40,10 @@ const Mutations = {
   },
 
   updateItem(parent, args, ctx, info) {
-    // TODO: Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to do that!");
+    }
+
     const updates = { ...args };
     delete updates.id;
 
@@ -55,16 +59,25 @@ const Mutations = {
   },
 
   async deleteItem(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to do that!");
+    }
+
     const where = { id: args.id };
 
     // 1. Find the item
-    const item = await ctx.db.query.item({ where }, `{id title}`);
+    const item = await ctx.db.query.item({ where }, `{id user { id }}`);
 
     // 2. Check if they own that item or have the permissions
-    // TODO
+    const ownsItem = item.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ["ADMIN", "ITEMDELETE"].includes(permission)
+    );
+    if (!ownsItem && !hasPermissions) {
+      throw new Error("You do not have the permission to delete this item!");
+    }
 
     // 3 Delete it
-
     return ctx.db.mutation.deleteItem({ where }, info);
   },
 
@@ -176,6 +189,19 @@ const Mutations = {
     setJwtCookie(ctx.response, user.id);
 
     return response;
+  },
+
+  async updatePermissions(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in!");
+    }
+
+    checkPermissions(ctx.request.user, ["ADMIN", "PERMISSIONUPDATE"]);
+
+    return ctx.db.mutation.updateUser({
+      data: { permissions: { set: args.permissions } },
+      where: { id: args.userId }
+    });
   }
 };
 
