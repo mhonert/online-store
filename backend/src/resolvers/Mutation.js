@@ -202,6 +202,98 @@ const Mutations = {
       data: { permissions: { set: args.permissions } },
       where: { id: args.userId }
     });
+  },
+
+  async addToCart(parent, args, ctx, info) {
+    const userId = ctx.request.userId;
+    if (!userId) {
+      throw new Error("You must be logged in!");
+    }
+
+    // Item already exists in cart?
+    const [existingCartItem] = await ctx.db.query.cartItems({
+      where: {
+        user: { id: userId },
+        item: { id: args.id }
+      }
+    });
+
+    if (existingCartItem) {
+      console.log(
+        "Update existing cart item",
+        existingCartItem.id,
+        userId,
+        args.id
+      );
+      return ctx.db.mutation.updateCartItem({
+        where: { id: existingCartItem.id },
+        data: { quantity: existingCartItem.quantity + 1 }
+      });
+    }
+
+    // No -> create new cart item
+    console.log("Create new cart item", userId, args.id);
+
+    return ctx.db.mutation.createCartItem({
+      data: {
+        user: {
+          connect: { id: userId }
+        },
+        item: {
+          connect: { id: args.id }
+        }
+      }
+    });
+  },
+
+  async removeFromCart(parent, args, ctx, info) {
+    const userId = ctx.request.userId;
+    if (!userId) {
+      throw new Error("You must be logged in!");
+    }
+
+    const [existingCartItem] = await ctx.db.query.cartItems({
+      where: {
+        user: { id: userId },
+        item: { id: args.id }
+      }
+    });
+
+    if (!existingCartItem) {
+      throw new Error("Item does not exist in cart");
+    }
+
+    if (existingCartItem.quantity <= 1) {
+      console.log(
+        "Remove last item of this type in cart",
+        existingCartItem.id,
+        userId,
+        args.id
+      );
+      // delete cart item
+      const deletedItem = await ctx.db.mutation.deleteCartItem({
+        where: {
+          id: existingCartItem.id
+        }
+      });
+
+      return {
+        ...deletedItem,
+        quantity: 0
+      };
+    }
+
+    // Reduce quantity of item in cart
+    console.log(
+      "Reduce quantity of item in cart",
+      existingCartItem.id,
+      userId,
+      args.id
+    );
+    return ctx.db.mutation.updateCartItem({
+      where: { id: existingCartItem.id },
+      data: { quantity: existingCartItem.quantity - 1 }
+    });
   }
 };
 

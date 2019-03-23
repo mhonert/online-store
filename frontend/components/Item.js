@@ -6,6 +6,7 @@ import Link from 'next/link';
 import PriceTag from "./styles/PriceTag";
 import formatMoney from "../lib/formatMoney";
 import DeleteItem from "./DeleteItem";
+import AddToCart from './AddToCart';
 
 const Item = ({item, onDelete}) => {
   return (
@@ -26,12 +27,9 @@ const Item = ({item, onDelete}) => {
         <Link href={{
           pathname: "update",
           query: { id: item.id }
-        }}><a>Edit ✏️</a></Link>
-        <Link href={{
-          pathname: "add",
-          query: { id: item.id }
-        }}><a>Add to Cart</a></Link>
-        <DeleteItem id={item.id} onDelete={onDelete}>Delete</DeleteItem>
+        }}><a>Edit 🖊</a></Link>
+        <AddToCart id={item.id}/>
+        <DeleteItem id={item.id} onDelete={onDelete}>Delete 🗑</DeleteItem>
       </div>
     </ItemStyles>
   );

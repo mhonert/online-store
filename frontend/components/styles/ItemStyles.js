@@ -28,9 +28,11 @@ const Item = styled.div`
     grid-gap: 1px;
     background: ${props => props.theme.lightgrey};
     & > * {
+      font-family: sans-serif;
+      font-weight: bold;
       background: white;
       border: 0;
-      font-size: 1rem;
+      font-size: 1.5rem;
       padding: 1rem;
     }
   }

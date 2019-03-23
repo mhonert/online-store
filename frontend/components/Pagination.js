@@ -40,7 +40,7 @@ const Pagination = ({ page }) => {
                 query: { page: page - 1 }
               }}
             >
-              <a className="prev" aria-disabled={page <= 1}>Prev</a>
+              <a className="prev" aria-disabled={page <= 1}>⬅ Prev</a>
             </Link>
 
             <p>
@@ -54,7 +54,7 @@ const Pagination = ({ page }) => {
                 query: { page: page + 1 }
               }}
             >
-              <a className="next" aria-disabled={page >= pages}>Next</a>
+              <a className="next" aria-disabled={page >= pages}>Next ➡</a>
             </Link>
           </PaginationStyles>
         );
