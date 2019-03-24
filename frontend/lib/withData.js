@@ -1,7 +1,6 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
 import { endpoint } from '../config';
-import gql from 'graphql-tag';
 import { LOCAL_STATE_QUERY } from '../components/Cart';
 
 function createClient({ headers }) {
@@ -10,9 +9,9 @@ function createClient({ headers }) {
     request: operation => {
       operation.setContext({
         fetchOptions: {
-          credentials: 'include',
+          credentials: 'include'
         },
-        headers,
+        headers
       });
     },
     // local data
@@ -20,11 +19,11 @@ function createClient({ headers }) {
       resolvers: {
         Mutation: {
           toggleCart: (_root, variables, { cache }) => {
-            const { cartOpen } = cache.readQuery({query: LOCAL_STATE_QUERY});
+            const { cartOpen } = cache.readQuery({ query: LOCAL_STATE_QUERY });
 
             const data = {
               data: { cartOpen: !cartOpen }
-            }
+            };
 
             cache.writeData(data);
             return data;
@@ -32,7 +31,7 @@ function createClient({ headers }) {
         }
       },
       defaults: {
-        cartOpen: false,
+        cartOpen: false
       }
     }
   });
