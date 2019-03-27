@@ -4,6 +4,7 @@ const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, createEmail } = require("../mail");
 const { checkPermissions } = require("../utils");
+const stripe = require("../stripe");
 
 const setJwtCookie = (response, userId) => {
   // create JWT for the user
@@ -294,6 +295,70 @@ const Mutations = {
       where: { id: existingCartItem.id },
       data: { quantity: existingCartItem.quantity - 1 }
     });
+  },
+
+  async createOrder(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId)
+      throw new Error("You must be signed in to complete this order.");
+
+    const user = await ctx.db.query.user(
+      { where: { id: userId } },
+      `{
+      id
+      name
+      email
+      cart { 
+        id
+        quantity
+        item { id title price description image largeImage } 
+       }}`
+    );
+
+    // Recalculate the total for the price
+    const amount = user.cart.reduce(
+      (count, cartItem) => count + cartItem.item.price * cartItem.quantity,
+      0
+    );
+
+    // Create the stripe charge
+    const charge = await stripe.charges.create({
+      amount,
+      currency: "USD",
+      source: args.token
+    });
+
+    // Convert the CartItems to OrderItems
+    const orderItems = user.cart.map(cartItem => {
+      const orderItem = {
+        ...cartItem.item,
+        quantity: cartItem.quantity,
+        user: { connect: { id: userId } }
+      };
+      delete orderItem.id;
+      return orderItem;
+    });
+
+    // Create the Order
+    const order = await ctx.db.mutation.createOrder({
+      data: {
+        total: charge.amount,
+        charge: charge.id,
+        items: { create: orderItems },
+        user: { connect: { id: userId } }
+      }
+    });
+
+    // Clean up - clear the users cart, delete CartItems
+    const cartItemIds = user.cart.map(cartItem => cartItem.id);
+    await ctx.db.mutation.deleteManyCartItems({
+      where: {
+        id_in: cartItemIds
+      }
+    });
+
+    // Return the Order to the client
+    return order;
   }
 };
 

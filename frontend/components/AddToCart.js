@@ -19,7 +19,7 @@ const AddToCart = ({ id }) => {
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
       {(addToCart, { loading }) => (
-        <button onClick={addToCart} disabled={loading} >Add to Cart 🛒</button>
+        <button onClick={addToCart} disabled={loading} >Add to Cart</button>
       )}
     </Mutation>
   );
