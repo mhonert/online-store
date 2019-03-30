@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SingleItem/> errors with not found item 1`] = `
+<p
+  data-test="graphql-error"
+>
+  <strong>
+    Shoot!
+  </strong>
+  Items Not Found!
+</p>
+`;
+
+exports[`<SingleItem/> renders correctly 1`] = `
+<SingleItem__SingleItemStyles>
+  <div
+    className="SingleItem__SingleItemStyles-sc-1u71o50-0 dbTpnF"
+  >
+    <SideEffect(Head)>
+      <Head />
+    </SideEffect(Head)>
+    <img
+      alt="dogs are best"
+      src="dog.jpg"
+    />
+    <div
+      className="details"
+    >
+      <h2>
+        Viewing 
+        dogs are best
+      </h2>
+      <p>
+        dogs
+      </p>
+    </div>
+  </div>
+</SingleItem__SingleItemStyles>
+`;
