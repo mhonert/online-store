@@ -1,12 +1,12 @@
 import React from "react"
-import SigninRequired from '../components/SigninRequired';
+import SignInRequired from '../components/SigninRequired';
 import Permissions from '../components/Permissions';
 
 const PermissionsPage = () => (
   <div>
-    <SigninRequired>
+    <SignInRequired>
       <Permissions />
-    </SigninRequired>
+    </SignInRequired>
   </div>
 )
 

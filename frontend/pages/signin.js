@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Signup from '../components/Signup';
-import Signin from '../components/Signin';
+import SignIn from '../components/Signin';
 import RequestReset from '../components/RequestReset';
 
 const Columns = styled.div`
@@ -12,7 +12,7 @@ const Columns = styled.div`
 
 const SigninPage = () => (
   <Columns>
-    <Signin />
+    <SignIn />
     <Signup />
     <RequestReset />
   </Columns>

@@ -12,8 +12,8 @@ const SIGN_OUT_MUTATION = gql`
   }
 `;
 
-const Signout = () => {
-  const handleSignout = async (signout) => {
+const SignOut = () => {
+  const handleSignOut = async (signout) => {
     const success = await signout();
 
     // change them to the sign in page
@@ -26,9 +26,9 @@ const Signout = () => {
       mutation={SIGN_OUT_MUTATION}
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
-      {signout => <button onClick={() => handleSignout(signout)}>Sign Out</button>}
+      {signout => <button onClick={() => handleSignOut(signout)}>Sign Out</button>}
     </Mutation>
   );
 };
 
-export default Signout;
+export default SignOut;

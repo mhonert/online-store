@@ -1,12 +1,12 @@
 import React from "react"
-import SigninRequired from '../components/SigninRequired';
+import SignInRequired from '../components/SigninRequired';
 import Order from '../components/Order';
 
 const OrderPage = ({query}) => (
   <div>
-    <SigninRequired>
+    <SignInRequired>
       <Order id={query.id} />
-    </SigninRequired>
+    </SignInRequired>
   </div>
 )
 

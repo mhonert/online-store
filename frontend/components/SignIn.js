@@ -16,7 +16,7 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-const Signin = () => {
+const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -77,4 +77,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;

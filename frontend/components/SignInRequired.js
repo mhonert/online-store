@@ -1,9 +1,9 @@
 import React from 'react';
 import { CURRENT_USER_QUERY } from './User';
-import Signin from './Signin';
+import SignIn from './SignIn';
 import Query from 'react-apollo/Query';
 
-const SigninRequired = ({ children }) => {
+const SignInRequired = ({ children }) => {
   return (
     <Query query={CURRENT_USER_QUERY}>
       {({data, loading}) => {
@@ -12,7 +12,7 @@ const SigninRequired = ({ children }) => {
           return (
             <>
               <p>You need to sign in to access this page.</p>
-              <Signin />
+              <SignIn />
             </>
           );
         }
@@ -22,4 +22,4 @@ const SigninRequired = ({ children }) => {
   );
 };
 
-export default SigninRequired;
+export default SignInRequired;

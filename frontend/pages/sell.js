@@ -1,12 +1,12 @@
 import React from "react"
 import CreateItem from "../components/CreateItem";
-import SigninRequired from '../components/SigninRequired';
+import SignInRequired from '../components/SigninRequired';
 
 const Sell = () => (
     <div>
-      <SigninRequired>
+      <SignInRequired>
         <CreateItem />
-      </SigninRequired>
+      </SignInRequired>
     </div>
 )
 
