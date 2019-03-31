@@ -81,17 +81,17 @@ const CreateItem = () => {
               {image && <img src={image} alt="Uploaded Preview" />}
             </label>
             <label>Title
-              <input type="text" name="title"
+              <input type="text" name="title" id="title"
                      placeholder="Title" required
                      value={title} onChange={e => setTitle(e.target.value)} />
             </label>
             <label>Price
-              <input type="number" name="price"
+              <input type="number" name="price" id="price"
                      placeholder="Price" required
                      value={price} onChange={e => setPrice(e.target.value)} />
             </label>
             <label>Description
-              <textarea type="text" name="description"
+              <textarea type="text" name="description" id="description"
                         placeholder="Enter a Description" required
                         value={description} onChange={e => setDescription(e.target.value)} />
             </label>

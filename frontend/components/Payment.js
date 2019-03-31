@@ -13,7 +13,7 @@ import Mutation from 'react-apollo/Mutation';
 const { publicRuntimeConfig } = getConfig();
 const { stripePublishableKey } = publicRuntimeConfig;
 
-const CREATE_ORDER_MUTATION = gql`
+export const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($token: String!) {
     createOrder(token: $token) {
       id
@@ -27,28 +27,36 @@ const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-const Payment = ({ children }) => {
-  const onToken = async (res, createOrder) => {
-    NProgress.start();
-    const order = await createOrder({
-      variables: {
-        token: res.id
-      }
-    }).catch(err => {
-      alert(err.message);
-    });
+export const onToken = async (res, createOrder) => {
+  NProgress.start();
+  const order = await createOrder({
+    variables: {
+      token: res.id
+    }
+  }).catch(err => {
+    alert(err.message);
+  });
 
-    Router.push({
-      pathname: '/order',
-      query: { id: order.data.createOrder.id }
-    })
-  };
+  Router.push({
+    pathname: '/order',
+    query: { id: order.data.createOrder.id }
+  });
+};
+
+const Payment = ({ children }) => {
 
   return (
     <User>
-      {({ data: { me } }) =>
-        me.cart &&
-        me.cart.length > 0 && (
+      {({ data: { me }, loading }) => {
+        if (loading) {
+          return 'Loading ...';
+        }
+
+        if (!me || !me.cart || me.cart.length === 0) {
+          return null;
+        }
+
+        return (
           <Mutation
             mutation={CREATE_ORDER_MUTATION}
             refetchQueries={[{ query: CURRENT_USER_QUERY }]}
@@ -68,12 +76,10 @@ const Payment = ({ children }) => {
               </StripeCheckout>
             )}
           </Mutation>
-        )
-      }
+        );
+      }}
     </User>
   );
 };
-
-// Payment.propTypes = {};
 
 export default Payment;

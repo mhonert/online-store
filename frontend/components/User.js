@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import Query from 'react-apollo/Query';
 import PropTypes from 'prop-types';
 
-const CURRENT_USER_QUERY = gql`
+export const CURRENT_USER_QUERY = gql`
   query CURRENT_USER_QUERY {
     me {
       id
@@ -11,15 +11,15 @@ const CURRENT_USER_QUERY = gql`
       name
       permissions
       cart {
+        id
+        quantity
+        item {
           id
-          quantity
-          item {
-              id
-              price
-              image
-              title
-              description
-          }
+          price
+          image
+          title
+          description
+        }
       }
     }
   }
@@ -38,4 +38,3 @@ User.propTypes = {
 };
 
 export default User;
-export { CURRENT_USER_QUERY };

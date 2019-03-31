@@ -61,7 +61,8 @@
       "\\.(gql|graphql)$": "jest-transform-graphql",
       ".*": "babel-jest",
       "^.+\\.js?$": "babel-jest"
-    }
+    },
+    "clearMocks": true
   },
   "//": "This is our babel config, I prefer this over a .babelrc file",
   "babel": {

@@ -27,9 +27,9 @@ const SignIn = () => {
     setEmail('');
     setPassword('');
 
-    // change them to the account page
+    // change them to the home page
     Router.push({
-      pathname: '/account'
+      pathname: '/'
     });
   };
 

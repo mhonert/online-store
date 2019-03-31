@@ -1,5 +1,5 @@
 import React from "react"
-import SignInRequired from '../components/SigninRequired';
+import SignInRequired from '../components/SignInRequired';
 import Permissions from '../components/Permissions';
 
 const PermissionsPage = () => (
@@ -8,6 +8,6 @@ const PermissionsPage = () => (
       <Permissions />
     </SignInRequired>
   </div>
-)
+);
 
 export default PermissionsPage;

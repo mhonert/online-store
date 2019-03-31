@@ -14,7 +14,7 @@ const BigButton = styled.button`
   }
 `;
 
-const REMOVE_FROM_CART_MUTATION = gql`
+export const REMOVE_FROM_CART_MUTATION = gql`
   mutation($id: ID!) {
     removeFromCart(id: $id) {
       quantity

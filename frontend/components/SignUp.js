@@ -7,7 +7,7 @@ import { Mutation } from 'react-apollo';
 import { CURRENT_USER_QUERY } from './User';
 import Router from 'next/router';
 
-const SIGNUP_MUTATION = gql`
+export const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
     $email: String!
     $name: String!
@@ -21,7 +21,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-const Signup = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -34,9 +34,9 @@ const Signup = () => {
     setName('');
     setPassword('');
 
-    // change them to the account page
+    // change them to the home page
     Router.push({
-      pathname: '/account'
+      pathname: '/'
     });
   };
 
@@ -95,4 +95,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

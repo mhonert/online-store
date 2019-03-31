@@ -1,6 +1,6 @@
 import React from "react"
 import CreateItem from "../components/CreateItem";
-import SignInRequired from '../components/SigninRequired';
+import SignInRequired from '../components/SignInRequired';
 
 const Sell = () => (
     <div>

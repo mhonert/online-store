@@ -8,7 +8,7 @@ import Head from 'next/head';
 import formatMoney from '../lib/formatMoney';
 import { parseISO, format } from 'date-fns';
 
-const SINGLE_ORDER_QUERY = gql`
+export const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
     order(id: $id) {
       id

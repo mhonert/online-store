@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Signup from '../components/Signup';
-import SignIn from '../components/Signin';
+import SignUp from '../components/SignUp';
+import SignIn from '../components/SignIn';
 import RequestReset from '../components/RequestReset';
 
 const Columns = styled.div`
@@ -10,12 +10,12 @@ const Columns = styled.div`
   grid-gap: 20px;
 `;
 
-const SigninPage = () => (
+const SignInPage = () => (
   <Columns>
     <SignIn />
-    <Signup />
+    <SignUp />
     <RequestReset />
   </Columns>
 );
 
-export default SigninPage;
+export default SignInPage;

@@ -48,6 +48,6 @@ describe('<Nav/>', () => {
     await wait();
     wrapper.update();
 
-    expect(wrapper.find('NavStyles > ul').children()).toHaveLength(6);
+    expect(wrapper.find('NavStyles > ul').children()).toHaveLength(5);
   });
 });

@@ -6,7 +6,7 @@ import { Mutation } from 'react-apollo';
 import { CURRENT_USER_QUERY } from './User';
 import Router from 'next/router';
 
-const REQUEST_RESET_MUTATION = gql`
+export const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
     requestReset(email: $email) {
         message

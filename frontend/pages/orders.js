@@ -1,5 +1,5 @@
 import React from "react"
-import SignInRequired from '../components/SigninRequired';
+import SignInRequired from '../components/SignInRequired';
 import OrderList from '../components/OrderList';
 
 const OrdersPage = () => (
