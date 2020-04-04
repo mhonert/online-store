@@ -16,9 +16,13 @@ exports[`<SingleItem/> renders correctly 1`] = `
   <div
     className="SingleItem__SingleItemStyles-sc-1u71o50-0 dbTpnF"
   >
-    <SideEffect(Head)>
-      <Head />
-    </SideEffect(Head)>
+    <Head>
+      <Component
+        handleStateChange={null}
+        inAmpMode={false}
+        reduceComponentsToState={[Function]}
+      />
+    </Head>
     <img
       alt="dogs are best"
       src="dog.jpg"

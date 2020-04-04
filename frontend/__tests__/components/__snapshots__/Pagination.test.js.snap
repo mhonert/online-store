@@ -5,9 +5,13 @@ exports[`<Pagination/> renders pagination for 20 items 1`] = `
   <div
     className="PaginationStyles-gv7izb-0 hGeDrr"
   >
-    <SideEffect(Head)>
-      <Head />
-    </SideEffect(Head)>
+    <Head>
+      <Component
+        handleStateChange={null}
+        inAmpMode={false}
+        reduceComponentsToState={[Function]}
+      />
+    </Head>
     <Link
       href={
         Object {
@@ -17,13 +21,13 @@ exports[`<Pagination/> renders pagination for 20 items 1`] = `
           },
         }
       }
-      prefetch={true}
     >
       <a
         aria-disabled={true}
         className="prev"
         href="?page=0"
         onClick={[Function]}
+        onMouseEnter={[Function]}
       >
         ⬅ Prev
       </a>
@@ -43,13 +47,13 @@ exports[`<Pagination/> renders pagination for 20 items 1`] = `
           },
         }
       }
-      prefetch={true}
     >
       <a
         aria-disabled={false}
         className="next"
         href="?page=2"
         onClick={[Function]}
+        onMouseEnter={[Function]}
       >
         Next ➡
       </a>

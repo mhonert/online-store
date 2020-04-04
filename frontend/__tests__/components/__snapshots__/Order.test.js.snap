@@ -5,9 +5,13 @@ exports[`<Order/> renders and matches snapshot 1`] = `
   <div
     className="OrderStyles-sc-119co2-0 gueJuX"
   >
-    <SideEffect(Head)>
-      <Head />
-    </SideEffect(Head)>
+    <Head>
+      <Component
+        handleStateChange={null}
+        inAmpMode={false}
+        reduceComponentsToState={[Function]}
+      />
+    </Head>
     <p>
       <span>
         Order ID
